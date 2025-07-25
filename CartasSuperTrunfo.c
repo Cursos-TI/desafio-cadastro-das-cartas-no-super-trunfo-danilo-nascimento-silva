@@ -10,7 +10,8 @@ int main(){
 	char codigo_carta[40];       
 	unsigned long int populacao;  
 	int pontos_turisticos; 
-	float area, pib, densidade_pol, pib_p_c, pib_calc, super_poder,inv_densidade_pol;             
+	float area, pib, densidade_pol, pib_p_c, pib_calc, super_poder,inv_densidade_pol;   
+	          
 	char estado2;               
 	char nome_cidade2[50];       
 	char codigo_carta2[40];
@@ -35,7 +36,7 @@ int main(){
 	scanf("%f", &area);	
 	printf("PIB: ");
 	scanf("%f", &pib);	
-	printf("Pontos Turistico: ");
+	printf("Pontos Turísticos: ");
 	scanf("%d", &pontos_turisticos);
 	printf("\n");
 	
@@ -55,57 +56,54 @@ int main(){
 	scanf("%f", &area2);	
 	printf("PIB: ");
 	scanf("%f", &pib2);	
-	printf("Pontos Turistico: ");
+	printf("Pontos Turísticos: ");
 	scanf("%d", &pontos_turisticos2);
 
 	//######################  Calculo de dados   #####################
 
 	//Cidade 1
-	densidade_pol = (float) populacao/area;
-	inv_densidade_pol = 1.0/densidade_pol;
-	pib_calc = (float) pib*1000000000;
-	pib_p_c = (float) pib_calc/populacao;
-	super_poder = (float)populacao + area + pib + (float)pontos_turisticos + pib_p_c + inv_densidade_pol + densidade_pol; 
+	if (populacao == 0) densidade_pol = 0;
+	else {
+		densidade_pol = (float) populacao/area;
+		inv_densidade_pol = 1.0/densidade_pol;
+	}
+		if (pib == 0) {
+			pib_calc = 0;
+			pib_p_c = 0;
+		}else {
+		pib_calc = (float) pib*1000000000;
+		pib_p_c = (float) pib_calc/populacao;
+	}
+	super_poder = (float)populacao + area + pib + (float)pontos_turisticos + pib_p_c + inv_densidade_pol; 
 
 	//Cidade 2
-	densidade_pol2 = (float) populacao2/area2;
-	inv_densidade_pol2 = 1.0/densidade_pol2;
-	pib_calc2 = (float) pib2*1000000000;
-	pib_p_c2 = (float) pib_calc2/populacao2;
-	super_poder2 = (float)populacao2 + area2 + pib2 + (float)pontos_turisticos2 + pib_p_c2 + inv_densidade_pol2 + densidade_pol2; 
-	
+		if (populacao2 == 0) densidade_pol2 = 0;
+	else {
+		densidade_pol2 = (float) populacao2/area2;
+		inv_densidade_pol2 = 1.0/densidade_pol2;
+	}
+		if (pib2 == 0) {
+			pib_calc2 = 0;
+			pib_p_c2 = 0;
+		}else {
+		pib_calc2 = (float) pib2*1000000000;
+		pib_p_c2 = (float) pib_calc2/populacao2;
+	}
+	super_poder2 = (float)populacao2 + area2 + pib2 + (float)pontos_turisticos2 + pib_p_c2 + inv_densidade_pol2;
+
 	//######################  Output de dados   ######################
 
-	printf("\nCarta1\n");
-	printf("Estado: %c \n", estado);
-	printf("Codigo: %s \n", codigo_carta);
-	printf("Nome da cidade: %s \n", nome_cidade);
-	printf("Populacao: %d \n", populacao);
-	printf("Area: %.2f Km \n", area);
-	printf("PIB: %.2f Bilhoes de reais \n", pib);
-	printf("Numero de pontos Turisticos: %d \n", pontos_turisticos);
-	printf("Densidade Populacional: %.2f hab/km \n", densidade_pol);
-	printf("PIB per Capita: %.2f reais\n", pib_p_c);
-	
-	printf("\nCarta2\n");
-	printf("Estado: %c \n", estado2);
-	printf("Codigo: %s \n", codigo_carta2);
-	printf("Nome da cidade: %s \n", nome_cidade2);
-	printf("Populacao: %d \n", populacao2);
-	printf("Area: %.2f Km \n", area2);
-	printf("PIB: %.2f Bilhoes de reais \n", pib2);
-	printf("Numero de pontos Turisticos: %d \n", pontos_turisticos2);
-	printf("Densidade Populacional: %.2f hab/km\n", densidade_pol2);
-	printf("PIB per Capita: %.2f reais\n", pib_p_c2);
-
-	printf("\nComparacao de cartas \n");
-	printf("Populacao: Carta %d venceu \n", (populacao > populacao2));
-	printf("Area: Carta %d venceu \n", (area > area2));
-	printf("PIB: Carta %d venceu \n", (pib > pib2));
-	printf("Pontos Turisticos: Carta %d venceu \n", (pontos_turisticos > pontos_turisticos2));
-	printf("Densidade Populacional:: Carta %d venceu \n", (densidade_pol < densidade_pol2));
-	printf("PIB per Capita: Carta %d venceu \n", (pib_p_c > pib_p_c2));
-	printf("Super Poder: Carta %d venceu \n", (super_poder > super_poder2));
+	printf("\nComparacao de cartas (Atributo: Populacao): \n");
+	printf("\nCarta 1 %s (%c): %lu.\n", nome_cidade, estado, populacao);
+	printf("Carta 2 %s (%c): %lu.\n", nome_cidade2, estado2, populacao2);
+	if (populacao > populacao2){
+		printf("Resultado: Carta 1 %s Venceu\n", nome_cidade);
+	}
+	else if (populacao < populacao2){
+		printf("Resultado: Carta 2 %s Venceu\n", nome_cidade2);
+	}else{
+		printf("Empate!!!");
+	}
 	
 	return 0;
 }
